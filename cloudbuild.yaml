@@ -4,14 +4,14 @@ steps:
     args:
       - 'build'
       - '-t'
-      - 'us-central1-docker.pkg.dev/\/my-apps/micro-api:\'
+      - 'us-central1-docker.pkg.dev/$PROJECT_ID/my-apps/micro-api:latest'
       - '.'
 
   # Step 2: Push Image to Artifact Registry
   - name: 'gcr.io/cloud-builders/docker'
     args:
       - 'push'
-      - 'us-central1-docker.pkg.dev/\/my-apps/micro-api:\'
+      - 'us-central1-docker.pkg.dev/$PROJECT_ID/my-apps/micro-api:latest'
 
   # Step 3: Deploy to Cloud Run
   - name: 'gcr.io/google.com/cloudsdktool/google-cloud-cli'
@@ -20,14 +20,14 @@ steps:
       - 'run'
       - 'deploy'
       - 'micro-api-service'
-      - '--image=us-central1-docker.pkg.dev/\/my-apps/micro-api:\'
+      - '--image=us-central1-docker.pkg.dev/$PROJECT_ID/my-apps/micro-api:latest'
       - '--region=us-central1'
       - '--platform=managed'
       - '--allow-unauthenticated'
       - '--port=8080'
 
 images:
-  - 'us-central1-docker.pkg.dev/\/my-apps/micro-api:\'
+  - 'us-central1-docker.pkg.dev/$PROJECT_ID/my-apps/micro-api:latest'
 
 options:
   logging: CLOUD_LOGGING_ONLY
